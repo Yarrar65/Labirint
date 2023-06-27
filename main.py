@@ -40,8 +40,30 @@ class Player(Game_sprite):
 
 
 player = Player(4, 4, 70, 40, r"images/souris_02-300x258.png")
-enemy = Game_sprite(50, 60, 100, 100, r"images/Eurasian_Lynx.png")
-finish = Game_sprite(100, 200, 70, 50, r"images/cheese-1.png")
+enemy = Game_sprite(250, 260, 100, 100, r"images/Eurasian_Lynx.png")
+finish = Game_sprite(600, 650, 70, 50, r"images/cheese-1.png")
+fail = Game_sprite(400, 600, 100, 100, r"images/34c586ac41db5ac.png")
+
+
+walls = pygame.sprite.Group()
+wall1 = Game_sprite(200, 200, 300, 10, r"images/product-3101010161.jpg")
+walls.add(wall1)
+wall2 = Game_sprite(200, 200, 10, 300, r"images/product-3101010161.jpg")
+walls.add(wall2)
+wall3 = Game_sprite(350, 400, 10, 300, r"images/product-3101010161.jpg")
+walls.add(wall3)
+wall4 = Game_sprite(200, 400, 10, 300, r"images/product-3101010161.jpg")
+walls.add(wall4)
+wall5 = Game_sprite(530, 400, 10, 300, r"images/product-3101010161.jpg")
+walls.add(wall5)
+wall6 = Game_sprite(730, 400, 10, 300, r"images/product-3101010161.jpg")
+walls.add(wall6)
+wall7 = Game_sprite(930, 400, 10, 300, r"images/product-3101010161.jpg")
+walls.add(wall7)
+wall8 = Game_sprite(1130, 200, 10, 600, r"images/product-3101010161.jpg")
+walls.add(wall8)
+wall9 = Game_sprite(700, 200, 450, 10, r"images/product-3101010161.jpg")
+walls.add(wall9)
 
 
 game = True
@@ -76,6 +98,8 @@ while game == True:
         player.update()
         enemy.show()
         finish.show()
+        walls.draw(window)
+        fail.show()
 
     clock.tick(FPS)
     pygame.display.update()
