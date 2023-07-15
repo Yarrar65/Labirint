@@ -1,3 +1,4 @@
+from typing import Any
 import pygame
 pygame.init()
 import os
@@ -76,11 +77,38 @@ class Color_sprite(Game_sprite):
         super().__init__(x, y, width, height, image)
         self.color = color
 
+class Enemy(Game_sprite):
+    def __init__(self, x, y, width, height, image, speed, direction, xmin, xmax):
+        super().__init__(x, y, width, height, image)
+        self.speed = speed
+        self.direction = direction
+        self.xmin = xmin
+        self.xmax = xmax
+        self.image_r = self.image
+        self.image_l = pygame.transform.flip(self.image, True, False)
+        
+
+    def update(self):
+        if self.direction == "left":
+            self.rect.x -= self.speed
+        else:
+            self.rect.x += self.speed
+        if self.rect.right >= self.xmax:
+            self.direction = "left"
+            self.speed += 0.5
+            self.image = self.image_l
+        if self.rect.left <= self.xmin:
+            self.direction = "right"
+            self.speed += 0.5
+            self.image = self.image_r
+        
+        
+
         
 
 
 player = Player(4, 4, 70, 40, r"images/souris_02-300x258.png")
-enemy = Game_sprite(250, 260, 100, 100, r"images/Eurasian_Lynx.png")
+enemy = Enemy(250, 260, 100, 100, r"images/Eurasian_Lynx.png", 2, "right", 250, 1100 )
 finish = Game_sprite(-600, 630, 70, 50, r"images/cheese-1.png")
 fail = Game_sprite(450, 610, 50, 50, r"images\pngimg.com - mouse_trap_PNG16.png")
 
@@ -174,6 +202,7 @@ while game == True:
         player.show()
         player.update()
         enemy.show()
+        enemy.update()
         finish.show()
         walls.draw(window)
         #fail.show()
@@ -216,9 +245,7 @@ while game == True:
 
         if pygame.sprite.collide_rect(player,enemy):
             level = 11
-            pygame.mixer.music.load(file_path(r"music\aee4c074e106b76 (online-audio-converter.com).ogg"))
-            pygame.mixer.music.set_volume(1)
-            pygame.mixer.music.load(file_path(r"music\01318288c1e160a.mp3"))
+            pygame.mixer.music.load(file_path(r"music\us.ogg"))
             pygame.mixer.music.set_volume(1)
             pygame.mixer.music.play()
 
